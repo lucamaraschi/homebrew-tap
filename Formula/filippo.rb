@@ -2,7 +2,7 @@ class Filippo < Formula
   desc "Declarative, config-driven menu bar icon manager for macOS"
   homepage "https://github.com/lucamaraschi/filippo"
   url "https://github.com/lucamaraschi/filippo/releases/download/v0.1.0/filippo-v0.1.0-source.tar.gz"
-  sha256 "b601c9b71ff5fadfacc84053e034873c5f511c43f46be3f7cb8a4d5c51f09caf"
+  sha256 "3364715b27859120d6dd815084655bae0f62417f95911ec5dd581f16fc66a61b"
   license "MIT"
 
   depends_on :macos
