@@ -2,7 +2,7 @@ class Filippo < Formula
   desc "Declarative, config-driven menu bar icon manager for macOS"
   homepage "https://github.com/lucamaraschi/filippo"
   url "https://github.com/lucamaraschi/filippo/releases/download/v0.1.0/filippo-v0.1.0-source.tar.gz"
-  sha256 "401ebebf7a3dcf20b8730f93c681c01b863da604c0d38d5ff11b59f84f082b97"
+  sha256 "b601c9b71ff5fadfacc84053e034873c5f511c43f46be3f7cb8a4d5c51f09caf"
   license "MIT"
 
   depends_on :macos
@@ -42,17 +42,20 @@ class Filippo < Formula
   def caveats
     <<~EOS
       filippo requires Accessibility permission to manage menu bar icons.
-      Launch the app bundle once so macOS can register it in Accessibility:
+      Start Filippo by opening the app bundle:
         open "#{opt_prefix}/Filippo.app"
 
-      Then start background launch at login:
-        brew services start filippo
+      On first launch, Filippo will ask for Accessibility permission
+      and whether it should start automatically at login.
 
       Filippo is installed as:
         #{opt_prefix}/Filippo.app
 
       To configure which icons are visible:
         filippo configure
+
+      Advanced users can still start the background service manually:
+        brew services start filippo
 
       Config file: ~/.config/filippo/config.toml
     EOS
