@@ -2,7 +2,7 @@ class Filippo < Formula
   desc "Declarative, config-driven menu bar icon manager for macOS"
   homepage "https://github.com/lucamaraschi/filippo"
   url "https://github.com/lucamaraschi/filippo/releases/download/v0.1.0/filippo-v0.1.0-source.tar.gz"
-  sha256 "8b4c715d5c9b3d30c6c2dc91dbc242c82cb85511452bcf8a9051ae821532cb26"
+  sha256 "10e048bc24ec4111a75dc6dec257877da71c654b615cbf5d62c126c67f46c9e2"
   license "MIT"
 
   depends_on :macos
@@ -17,7 +17,13 @@ class Filippo < Formula
       bin.install ".build/release/MenuBarManager" => "filippod"
     end
 
-    bin.install "packages/cli/dist/index.js" => "filippo"
+    (libexec/"packages/cli").install Dir["packages/cli/dist"]
+    (libexec/"packages/cli").install Dir["packages/cli/node_modules"]
+    (libexec/"packages/cli").install "packages/cli/package.json"
+    (bin/"filippo").write <<~EOS
+      #!/bin/bash
+      exec "#{Formula["node"].opt_bin}/node" "#{libexec}/packages/cli/dist/index.js" "$@"
+    EOS
   end
 
   service do
@@ -30,9 +36,7 @@ class Filippo < Formula
   def caveats
     <<~EOS
       filippo requires Accessibility permission to manage menu bar icons.
-      On first launch, you'll be prompted to grant this in System Settings.
-
-      To start filippo now and auto-start on login:
+      Start the daemon once so macOS can register it for permission prompts:
         brew services start filippo
 
       To configure which icons are visible:
