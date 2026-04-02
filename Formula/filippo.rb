@@ -2,7 +2,7 @@ class Filippo < Formula
   desc "Declarative, config-driven menu bar icon manager for macOS"
   homepage "https://github.com/lucamaraschi/filippo"
   url "https://github.com/lucamaraschi/filippo/releases/download/v0.1.0/filippo-v0.1.0-source.tar.gz"
-  sha256 "3364715b27859120d6dd815084655bae0f62417f95911ec5dd581f16fc66a61b"
+  sha256 "e3476fbf473d12e1dc0c2228b5c089393aeb6b2c779157e8785af26b20b78cbc"
   license "MIT"
 
   depends_on :macos
@@ -30,6 +30,10 @@ class Filippo < Formula
       #!/bin/bash
       exec "#{Formula["node"].opt_bin}/node" "#{libexec}/packages/cli/dist/index.js" "$@"
     EOS
+  end
+
+  def post_install
+    system "/usr/bin/open", "#{opt_prefix}/Filippo.app"
   end
 
   service do
